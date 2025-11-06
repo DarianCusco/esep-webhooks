@@ -20,7 +20,8 @@ public class Function
     {
         context.Logger.LogInformation($"FunctionHandler received: {input}");
 
-        dynamic json = JsonConvert.DeserializeObject<dynamic>(input.ToString());
+        string jsonString = input.GetRawText();
+        dynamic json = JsonConvert.DeserializeObject<dynamic>(jsonString);
 
         // Testing from postman, you can use this code to test the function
         /*
@@ -31,17 +32,17 @@ public class Function
         string payload = $"{{'text':'Issue Created: {body.issue.html_url}'}}";
         */
         
-        string payload = $"{{'text':'Issue Created: {json.issue.html_url}'}}";
+        string payload = $"{{\"text\":\"Issue Created: {json.issue.html_url}\"}}";
 
         var client = new HttpClient();
         var webRequest = new HttpRequestMessage(HttpMethod.Post, Environment.GetEnvironmentVariable("SLACK_URL"))
         {
             Content = new StringContent(payload, Encoding.UTF8, "application/json")
         };
-    
+
         var response = client.Send(webRequest);
         using var reader = new StreamReader(response.Content.ReadAsStream());
-            
+
         return reader.ReadToEnd();
     }
 }
