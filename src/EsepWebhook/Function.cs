@@ -30,6 +30,7 @@ public class Function
         };
 
         var response = client.Send(webRequest);
+        context.Logger.LogInformation($"Slack response: {response.StatusCode}");
         using var reader = new StreamReader(response.Content.ReadAsStream());
 
         return reader.ReadToEnd();
