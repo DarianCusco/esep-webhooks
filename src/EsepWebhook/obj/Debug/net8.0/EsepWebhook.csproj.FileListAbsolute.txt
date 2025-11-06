@@ -15,3 +15,5 @@ C:\Users\cusco\source\repos\EsepWebhook\src\EsepWebhook\obj\Debug\net8.0\refint\
 C:\Users\cusco\source\repos\EsepWebhook\src\EsepWebhook\obj\Debug\net8.0\EsepWebhook.pdb
 C:\Users\cusco\source\repos\EsepWebhook\src\EsepWebhook\obj\Debug\net8.0\EsepWebhook.genruntimeconfig.cache
 C:\Users\cusco\source\repos\EsepWebhook\src\EsepWebhook\obj\Debug\net8.0\ref\EsepWebhook.dll
+C:\Users\cusco\source\repos\EsepWebhook\src\EsepWebhook\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\cusco\source\repos\EsepWebhook\src\EsepWebhook\obj\Debug\net8.0\EsepWebhook.sourcelink.json

@@ -9,30 +9,19 @@ namespace EsepWebhook;
 
 public class Function
 {
-    
-    /// <summary>
-    /// A simple function that takes a string and does a ToUpper
-    /// </summary>
-    /// <param name="input"></param>
-    /// <param name="context"></param>
-    /// <returns></returns>
     public string FunctionHandler(object input, ILambdaContext context)
     {
         context.Logger.LogInformation($"FunctionHandler received: {input}");
 
-        string jsonString = input.GetRawText();
+        // Parse the outer API Gateway event
+        string jsonString = input.ToString();
         dynamic json = JsonConvert.DeserializeObject<dynamic>(jsonString);
 
-        // Testing from postman, you can use this code to test the function
-        /*
-        context.Logger.LogInformation($"Body: {json.body}");
+        // Parse the inner GitHub payload from the "body" field
         dynamic body = JsonConvert.DeserializeObject<dynamic>(json.body.ToString());
-        context.Logger.LogInformation($"Issue: {body.issue}");
-        context.Logger.LogInformation($"Html: {body.issue.html_url}");
-        string payload = $"{{'text':'Issue Created: {body.issue.html_url}'}}";
-        */
-        
-        string payload = $"{{\"text\":\"Issue Created: {json.issue.html_url}\"}}";
+
+        // Build payload for Slack
+        string payload = $"{{\"text\":\"Issue Created: {body.issue.html_url}\"}}";
 
         var client = new HttpClient();
         var webRequest = new HttpRequestMessage(HttpMethod.Post, Environment.GetEnvironmentVariable("SLACK_URL"))
